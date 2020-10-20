@@ -11,7 +11,7 @@
               Login page
             </div>
             <div class="card-body">
-              <form>
+              <form method='POST' action='process/loginprocess.php'>
                <div class="form-group">
                  <label for="exampleInputEmail1">Email address</label>
                  <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">

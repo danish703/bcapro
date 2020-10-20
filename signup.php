@@ -11,7 +11,7 @@
                Signup page
              </div>
              <div class="card-body">
-               <form>
+               <form method='POST' action='process/signupprocess.php'>
                  <div class="form-group">
                    <label for="fname">Full Name</label>
                    <input type="text" name="fname" class="form-control" id="fname">
