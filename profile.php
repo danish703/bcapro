@@ -4,7 +4,11 @@
   include('process/user.php');
   $id = getLoginUserId($conn);
   $sql = "SELECT * FROM incomecategory WHERE user_id = '$id'";
+  $incomeSql = "SELECT * FROM income WHERE user_id = '$id' ORDER BY `date` DESC LIMIT 5";
+  $incomeSqlTotal = "SELECT sum(`amount`) as total FROM income WHERE user_id = '$id'";
   $incomeCategory = $conn->query($sql);
+  $allincome = $conn->query($incomeSql);
+  $total = $conn->query($incomeSqlTotal);
  ?>
  <div class="container">
    <div class="row justify-content-end">
@@ -12,7 +16,7 @@
         <div class="card  text-white bg-primary">
           <h5 class="card-header">Total Income</h5>
           <div class="card-body">
-            <h5 class="card-title">Rs. 20000</h5>
+            <h5 class="card-title">Rs. <?php echo $total->fetch_assoc()['total'];?></h5>
           </div>
         </div>
       </div>
@@ -51,16 +55,18 @@
                       <th>Amount</th>
                    </thead>
                    <tbody>
+                  <?php while($row=$allincome->fetch_assoc()){ ?>
                       <tr>
-                        <td>Food</td>
-                        <td>2020-10-31</td>
-                        <td>Rs.899</td>
+                        <td><?php echo $row['title'];?></td>
+                        <td><?php echo $row['date'];?></td>
+                        <td><?php echo $row['amount'];?></td>
                       </tr>
+                    <?php } ?>
                    </tbody>
                 </table>
             </div>
             <div class="card-footer">
-               <a href="#" style="float:right;">View more</a>
+               <a href="allincome.php" style="float:right;">View more</a>
             </div>
          </div>
        </div>
