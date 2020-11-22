@@ -9,6 +9,9 @@
   $incomeCategory = $conn->query($sql);
   $allincome = $conn->query($incomeSql);
   $total = $conn->query($incomeSqlTotal);
+  $today = date('Y-m-d');
+  $todayIncomeQuery = "SELECT count(*) as c FROM income WHERE date='$today' GROUP BY date";
+  $totaltodayIncome = $conn->query($todayIncomeQuery);
  ?>
  <div class="container">
    <div class="row justify-content-end">
@@ -17,6 +20,33 @@
           <h5 class="card-header">Total Income</h5>
           <div class="card-body">
             <h5 class="card-title">Rs. <?php echo $total->fetch_assoc()['total'];?></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card  text-white bg-danger">
+          <h5 class="card-header">Total Expenses</h5>
+          <div class="card-body">
+            <h5 class="card-title">Rs 30000</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card text-white bg-success">
+        <h5 class="card-header">Total Saving</h5>
+        <div class="card-body">
+          <h5 class="card-title">Rs.17000</h5>
+        </div>
+        </div>
+      </div>
+   </div>
+   <hr/>
+   <div class="row justify-content-end">
+      <div class="col-4">
+        <div class="card  text-white bg-primary">
+          <h5 class="card-header">Today total income transaction</h5>
+          <div class="card-body">
+            <h5 class="card-title"> <?php echo $totaltodayIncome->fetch_assoc()['c'];?></h5>
           </div>
         </div>
       </div>
